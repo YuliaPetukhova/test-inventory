@@ -3,15 +3,16 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import InventoryPage from "@/components/InventoryPage.vue";
+import {Options, Vue} from 'vue-class-component';
+import InventoryPage from "@/components/inventory-page/InventoryPage.vue";
 
 @Options({
   components: {
     InventoryPage
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+}
 </script>
 
 <style lang="scss">
@@ -24,7 +25,7 @@ export default class App extends Vue {}
   padding: 0;
 }
 
-body{
+body {
   background-color: #1D1D1D;
   padding: 0;
   margin: 0;
