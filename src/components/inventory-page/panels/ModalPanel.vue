@@ -16,8 +16,8 @@ export default {
     <div class="panel-image">
 
       <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
+        <div class="cell-image-blur" :style="{'background-color': useCellsStore.selectedCell.blurBackgroundColor}"></div>
+        <div class="cell-image-main" :style="{'background-color': useCellsStore.selectedCell.mainBackgroundColor}"></div>
       </div>
 
     </div>
@@ -67,7 +67,7 @@ export default {
     height: 130px;
 
     .cell-image-main {
-      background-color: #7FAA65;
+      //background-color: #7FAA65;
       width: 115px;
       height: 115px;
     }
@@ -77,7 +77,7 @@ export default {
       margin: -19px 0px 29px 32px;
       width: 115px;
       height: 115px;
-      background-color: rgba(127, 170, 101, 0.35);
+      //background-color: rgba(127, 170, 101, 0.35);
       backdrop-filter: blur(22px);
     }
   }

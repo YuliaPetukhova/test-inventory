@@ -1,11 +1,12 @@
 import {defineStore} from "pinia";
+import {ICellItem} from "@/components/models/ICellItem";
 
 export const useCellsStore = defineStore('cellsStore', {
     state: () => ({
         data: [
             {
                 id: 1,
-                count: 1,
+                count: 3,
                 mainBackgroundColor: '#7FAA65',
                 blurBackgroundColor: '#7FAA6559',
                 empty: false,
@@ -25,160 +26,84 @@ export const useCellsStore = defineStore('cellsStore', {
                 empty: false,
             },
             {
-                id: 4,
-                count: '',
-                mainBackgroundColor: 'purple',
-                blurBackgroundColor: 'mediumpurple',
                 empty: true,
             },
             {
-                id: 5,
-                count: '',
-                mainBackgroundColor: 'yellow',
-                blurBackgroundColor: 'yellow',
                 empty: true,
             },
             {
-                id: 6,
-                count: '',
-                mainBackgroundColor: 'green',
-                blurBackgroundColor: 'green',
                 empty: true,
             },
             {
-                id: 7,
-                count: '',
-                mainBackgroundColor: 'red',
-                blurBackgroundColor: 'red',
                 empty: true,
             },
             {
-                id: 8,
-                count: '',
-                mainBackgroundColor: 'blue',
-                blurBackgroundColor: 'blue',
                 empty: true,
             },
             {
-                id: 9,
-                count: '',
-                mainBackgroundColor: 'black',
-                blurBackgroundColor: 'rgba(28,26,26,0.35)',
                 empty: true,
             },
             {
-                id: 10,
-                count: '',
-                mainBackgroundColor: 'white',
-                blurBackgroundColor: 'white',
                 empty: true,
             },
             {
-                id: 11,
-                count: '',
-                mainBackgroundColor: 'gray',
-                blurBackgroundColor: 'gray',
                 empty: true,
             },
             {
-                id: 12,
-                count: '',
-                mainBackgroundColor: 'brown',
-                blurBackgroundColor: 'brown',
                 empty: true,
             },
             {
-                id: 13,
-                count: '',
-                mainBackgroundColor: 'pink',
-                blurBackgroundColor: 'pink',
                 empty: true,
             },
             {
-                id: 14,
-                count: '',
-                mainBackgroundColor: 'orange',
-                blurBackgroundColor: 'orange',
                 empty: true,
             },
             {
-                id: 15,
-                count: '',
-                mainBackgroundColor: 'cyan',
-                blurBackgroundColor: 'cyan',
                 empty: true,
             },
             {
-                id: 16,
-                count: '',
-                mainBackgroundColor: 'magenta',
-                blurBackgroundColor: 'magenta',
                 empty: true,
             },
             {
-                id: 17,
-                count: '',
-                mainBackgroundColor: 'violet',
-                blurBackgroundColor: 'violet',
                 empty: true,
             },
             {
-                id: 18,
-                count: '',
-                mainBackgroundColor: 'beige',
-                blurBackgroundColor: 'beige',
                 empty: true,
             },
             {
-                id: 19,
-                count: '',
-                mainBackgroundColor: 'turquoise',
-                blurBackgroundColor: 'turquoise',
                 empty: true,
             },
             {
-                id: 20,
-                count: '',
-                mainBackgroundColor: 'lavender',
-                blurBackgroundColor: 'lavender',
                 empty: true,
             },
             {
-                id: 21,
-                count: '',
-                mainBackgroundColor: 'salmon',
-                blurBackgroundColor: 'salmon',
                 empty: true,
             },
             {
-                id: 22,
-                count: '',
-                mainBackgroundColor: 'khaki',
-                blurBackgroundColor: 'khaki',
                 empty: true,
             },
             {
-                id: 23,
-                count: '',
-                mainBackgroundColor: 'plum',
-                blurBackgroundColor: 'plum',
                 empty: true,
             },
             {
-                id: 24,
-                count: '',
-                mainBackgroundColor: 'orchid',
-                blurBackgroundColor: 'orchid',
                 empty: true,
             },
             {
-                id: 25,
-                count: '',
-                mainBackgroundColor: 'indigo',
-                blurBackgroundColor: 'indigo',
                 empty: true,
             },
         ],
+        selectedCell:
+            {
+                id: 1,
+                count: 1,
+                mainBackgroundColor: '#6b7a62',
+                blurBackgroundColor: 'rgba(121,70,118,0.35)',
+                empty: false,
+            } as ICellItem,
     }),
-    actions: {},
+    actions: {
+        setSelectedCell(cell: ICellItem): void {
+            this.selectedCell = cell;
+        },
+    },
 });

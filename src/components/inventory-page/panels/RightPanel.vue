@@ -3,20 +3,27 @@ import ModalPanel from "@/components/inventory-page/panels/ModalPanel.vue";
 import {Icon} from "@iconify/vue";
 import draggable from "vuedraggable";
 import {useCellsStore} from "@/components/stores/CellsStore";
+import {ICellItem} from "@/components/models/ICellItem";
 
 export default {
   components: {Icon, ModalPanel, draggable},
 
   setup() {
+
     return {
       useCellsStore: useCellsStore(),
     };
   },
 
   methods: {
-    showModalPanel() {
+
+    showModalPanel(cell: ICellItem) {
       const showModalPanel = document.querySelector('.modal-panel');
       showModalPanel!.classList.add('show');
+
+      console.log(useCellsStore().selectedCell);
+      useCellsStore().setSelectedCell(cell);
+      console.log(useCellsStore().selectedCell);
     },
 
     closeModal() {
@@ -31,11 +38,12 @@ export default {
   <div class="right-panel">
 
     <draggable v-model="useCellsStore.data"
-                 class="rows" item-key="name">
+               class="rows" item-key="name">
 
       <template #item="{ element }">
 
-        <div class="table-cell" @click="showModalPanel">
+        <div class="table-cell"
+             @click="showModalPanel(element)">
           <div class="cell-image-container" v-if="!element.empty">
             <div class="cell-image-blur" :style="{'background-color': element.blurBackgroundColor}"></div>
             <div class="cell-image-main" :style="{'background-color': element.mainBackgroundColor}"></div>
@@ -45,7 +53,7 @@ export default {
       </template>
     </draggable>
 
-    <div class="modal-panel">
+    <div class="modal-panel" v-if="showModalPanel">
       <Icon icon="carbon:close" class="close-panel-icon" @click="closeModal"/>
       <modal-panel></modal-panel>
     </div>
@@ -114,7 +122,7 @@ export default {
     .cell-image-main {
       width: 54px;
       height: 54px;
-      margin:25px 28px 20px 22px;
+      margin: 25px 28px 20px 22px;
     }
 
     .cell-image-blur {
@@ -170,9 +178,11 @@ export default {
 .table-cell:nth-child(23) {
   border-bottom: none;
 }
+
 .table-cell:nth-child(24) {
   border-bottom: none;
 }
+
 .table-cell:nth-child(25) {
   border-bottom: none;
 }
