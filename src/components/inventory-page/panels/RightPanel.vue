@@ -1,137 +1,82 @@
 <script lang="ts">
-import {Options, Vue} from 'vue-class-component';
+// import {Options, Vue} from 'vue-class-component';
 import ModalPanel from "@/components/inventory-page/panels/ModalPanel.vue";
 import {Icon} from "@iconify/vue";
+import draggable from "vuedraggable";
+import {ref} from 'vue';
 
-@Options({
-  components: {Icon, ModalPanel}
-})
-export default class RightPanel extends Vue {
-  showModalPanel() {
-    const showModalPanel = document.querySelector('.modal-panel');
-    showModalPanel!.classList.add('show');
-  }
+// @Options({
+//   components: {Icon, ModalPanel, draggable}
+// })
 
-  closeModal() {
-    const closeModalPanel = document.querySelector('.modal-panel');
-    closeModalPanel!.classList.remove('show');
+export default {
+  components: {Icon, ModalPanel, draggable},
+
+  setup() {
+    const items = ref([
+      {id: 1, number: '1'},
+      {id: 2, number: '2'},
+      {id: 3, number: '3'},
+      {id: 4, number: '4'},
+      {id: 5, number: '5'},
+      {id: 6, number: '6'},
+      {id: 7, number: '7'},
+      {id: 8, number: '8'},
+      {id: 9, number: '9'},
+    ]);
+
+    return {
+      items,
+    };
+  },
+
+  methods: {
+    showModalPanel() {
+      const showModalPanel = document.querySelector('.modal-panel');
+      showModalPanel!.classList.add('show');
+    },
+
+    closeModal() {
+      const closeModalPanel = document.querySelector('.modal-panel');
+      closeModalPanel!.classList.remove('show');
+    }
   }
-}
+};
+// export default class RightPanel extends Vue {
+//
+//   items = [
+//     {id: 1, name: 'Item 1'},
+//     {id: 2, name: 'Item 2'},
+//   ]
+//
+//   showModalPanel() {
+//     const showModalPanel = document.querySelector('.modal-panel');
+//     showModalPanel!.classList.add('show');
+//   }
+//
+//   closeModal() {
+//     const closeModalPanel = document.querySelector('.modal-panel');
+//     closeModalPanel!.classList.remove('show');
+//   }
+// }
 </script>
 
 <template>
   <div class="right-panel">
-    <div class="table-cell" @click="showModalPanel">
 
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
+    <draggable v-model="items" class="rows" item-key="name">
 
-      <div class="counter">7</div>
-    </div>
+      <template #item="{ element }">
 
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter">4</div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter">3</div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter">9</div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter"></div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter"></div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter"></div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter"></div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter"></div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter"></div>
-    </div>
-
-    <div class="table-cell">
-
-      <div class="cell-image-container">
-        <div class="cell-image-blur"></div>
-        <div class="cell-image-main"></div>
-      </div>
-
-      <div class="counter"></div>
-    </div>
-
-    <div class="table-cell"></div>
+        <div class="table-cell" @click="showModalPanel">
+          <div class="cell-image-container">
+            <div class="cell-image-blur"></div>
+            <div class="cell-image-main"></div>
+          </div>
+          <div class="counter">{{ element.number }}</div>
+        </div>
+      </template>
+    </draggable>
 
     <div class="modal-panel">
       <Icon icon="carbon:close" class="close-panel-icon" @click="closeModal"/>
@@ -139,14 +84,13 @@ export default class RightPanel extends Vue {
     </div>
   </div>
 
-
 </template>
 
 <style scoped lang="scss">
 .right-panel {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   align-content: flex-start;
   align-items: center;
   width: 525px;
@@ -155,16 +99,27 @@ export default class RightPanel extends Vue {
   border: 1px solid #4D4D4D;
   border-radius: 12px;
   position: relative;
+  box-sizing: border-box;
+}
+
+.rows {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  width: 525px;
+  height: 100px;
 }
 
 .table-cell {
   position: relative;
-  height: 100px;
-  width: 20%;
+  height: 99px;
+  width: 105px;
   border-bottom: 1px solid #4D4D4D;
   border-right: 1px solid #4D4D4D;
   cursor: pointer;
   box-sizing: border-box;
+  padding: 0;
 
   &:first-child {
     border-top-left-radius: 12px;
@@ -176,6 +131,8 @@ export default class RightPanel extends Vue {
     align-content: center;
     justify-content: center;
     position: relative;
+    height: 99px;
+    width: 105px;
 
     .cell-image-main {
       background-color: #7FAA65;
@@ -186,7 +143,7 @@ export default class RightPanel extends Vue {
 
     .cell-image-blur {
       position: absolute;
-      margin: 23px 19px 29px 32px;
+      margin: 23px 19px 21px 29px;
       width: 54px;
       height: 54px;
       background-color: rgba(127, 170, 101, 0.35);
@@ -196,8 +153,8 @@ export default class RightPanel extends Vue {
 
   .counter {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     right: 0;
     bottom: 0;
     border-radius: 5px 0 0 0;
