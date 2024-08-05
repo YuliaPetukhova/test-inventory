@@ -1,32 +1,15 @@
 <script lang="ts">
-// import {Options, Vue} from 'vue-class-component';
 import ModalPanel from "@/components/inventory-page/panels/ModalPanel.vue";
 import {Icon} from "@iconify/vue";
 import draggable from "vuedraggable";
-import {ref} from 'vue';
-
-// @Options({
-//   components: {Icon, ModalPanel, draggable}
-// })
+import {useCellsStore} from "@/components/stores/CellsStore";
 
 export default {
   components: {Icon, ModalPanel, draggable},
 
   setup() {
-    const items = ref([
-      {id: 1, number: '1'},
-      {id: 2, number: '2'},
-      {id: 3, number: '3'},
-      {id: 4, number: '4'},
-      {id: 5, number: '5'},
-      {id: 6, number: '6'},
-      {id: 7, number: '7'},
-      {id: 8, number: '8'},
-      {id: 9, number: '9'},
-    ]);
-
     return {
-      items,
+      useCellsStore: useCellsStore(),
     };
   },
 
@@ -42,38 +25,22 @@ export default {
     }
   }
 };
-// export default class RightPanel extends Vue {
-//
-//   items = [
-//     {id: 1, name: 'Item 1'},
-//     {id: 2, name: 'Item 2'},
-//   ]
-//
-//   showModalPanel() {
-//     const showModalPanel = document.querySelector('.modal-panel');
-//     showModalPanel!.classList.add('show');
-//   }
-//
-//   closeModal() {
-//     const closeModalPanel = document.querySelector('.modal-panel');
-//     closeModalPanel!.classList.remove('show');
-//   }
-// }
 </script>
 
 <template>
   <div class="right-panel">
 
-    <draggable v-model="items" class="rows" item-key="name">
+    <draggable v-model="useCellsStore.data"
+                 class="rows" item-key="name">
 
       <template #item="{ element }">
 
         <div class="table-cell" @click="showModalPanel">
-          <div class="cell-image-container">
-            <div class="cell-image-blur"></div>
-            <div class="cell-image-main"></div>
+          <div class="cell-image-container" v-if="!element.empty">
+            <div class="cell-image-blur" :style="{'background-color': element.blurBackgroundColor}"></div>
+            <div class="cell-image-main" :style="{'background-color': element.mainBackgroundColor}"></div>
           </div>
-          <div class="counter">{{ element.number }}</div>
+          <div class="counter">{{ element.count }}</div>
         </div>
       </template>
     </draggable>
@@ -93,13 +60,13 @@ export default {
   flex-direction: column;
   align-content: flex-start;
   align-items: center;
-  width: 525px;
-  height: 500px;
-  background-color: #262626;
+  width: 526.5px;
+  height: 501px;
   border: 1px solid #4D4D4D;
   border-radius: 12px;
   position: relative;
   box-sizing: border-box;
+  background-color: #262626;
 }
 
 .rows {
@@ -113,16 +80,24 @@ export default {
 
 .table-cell {
   position: relative;
-  height: 99px;
+  background-color: #262626;
+  height: 100px;
   width: 105px;
-  border-bottom: 1px solid #4D4D4D;
-  border-right: 1px solid #4D4D4D;
   cursor: pointer;
   box-sizing: border-box;
   padding: 0;
+  border: 1px solid #4D4D4D;
+  border-top: none;
+  border-left: none;
 
   &:first-child {
     border-top-left-radius: 12px;
+    border-top: none;
+  }
+
+  &:last-child {
+    border-bottom-right-radius: 12px;
+    border-bottom: none;
   }
 
   .cell-image-container {
@@ -131,22 +106,22 @@ export default {
     align-content: center;
     justify-content: center;
     position: relative;
-    height: 99px;
-    width: 105px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 
     .cell-image-main {
-      background-color: #7FAA65;
       width: 54px;
       height: 54px;
-      margin: 29px 31px 23px 26px;
+      margin:25px 28px 20px 22px;
     }
 
     .cell-image-blur {
       position: absolute;
-      margin: 23px 19px 21px 29px;
+      margin: 19px 19px 21px 29px;
       width: 54px;
       height: 54px;
-      background-color: rgba(127, 170, 101, 0.35);
       backdrop-filter: blur(22px);
     }
   }
@@ -161,6 +136,7 @@ export default {
     padding: 2px 1px 2px 4px;
     border: 1px solid #4D4D4D;
     border-bottom: none;
+    border-right: none;
     font-size: 10px;
     text-align: center;
     line-height: 1;
@@ -169,17 +145,36 @@ export default {
   }
 }
 
+.table-cell:nth-child(5) {
+  border-top-right-radius: 12px;
+}
+
 .table-cell:nth-child(5n+5) {
   border-right: none;
 }
 
-.table-cell:nth-child(5n+5):hover {
+.table-cell:nth-child(5):hover {
   background-color: #2F2F2F;
-  border-top-right-radius: 12px;
 }
 
-.table-cell:nth-child(1n+1) {
+.table-cell:nth-child(21) {
+  border-bottom: none;
   border-left: none;
+  border-bottom-left-radius: 12px;
+}
+
+.table-cell:nth-child(22) {
+  border-bottom: none;
+}
+
+.table-cell:nth-child(23) {
+  border-bottom: none;
+}
+.table-cell:nth-child(24) {
+  border-bottom: none;
+}
+.table-cell:nth-child(25) {
+  border-bottom: none;
 }
 
 .table-cell:hover {

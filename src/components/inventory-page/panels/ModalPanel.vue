@@ -1,10 +1,12 @@
 <script lang="ts">
-import {Options, Vue} from 'vue-class-component';
+import {useCellsStore} from "@/components/stores/CellsStore";
 
-@Options({
-  components: {}
-})
-export default class ModalPanel extends Vue {
+export default {
+  setup() {
+    return {
+      useCellsStore: useCellsStore(),
+    };
+  },
 }
 </script>
 
