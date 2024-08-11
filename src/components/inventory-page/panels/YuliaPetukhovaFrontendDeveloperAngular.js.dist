@@ -1,0 +1,107 @@
+//1 задание
+
+if (!Array.prototype.groupBy) {
+    Array.prototype.groupBy = function (keyFunction = (val) => val) {
+        const groups = {};
+        this.forEach((item) => {
+            const key = keyFunction(item);
+            if (!groups[key]) {
+                groups[key] = [];
+            }
+            groups[key].push(item);
+        });
+        return groups;
+    };
+}
+
+const numbers = [1, 2, 3, 2, 4, 1, 5, 1, 6];
+
+const groupedByValue = numbers.groupBy();
+console.log(groupedByValue);
+
+const groupedByMod3 = numbers.groupBy((val) => val % 3);
+console.log(groupedByMod3);
+
+
+//2 задание
+
+// вариант с значением b
+
+let a = new Promise((resolve, reject) => {
+        let b = 0;
+        resolve(b);
+    })
+        .then((value) => value)
+        .then((value) => console.log("Значение b:", value))
+        .catch((error) => {
+        })
+;
+
+setTimeout(() => {
+    console.log(a);
+});
+
+//вариант с ошибкой
+
+window.addEventListener('unhandledrejection', function (event) {
+    console.error(event.reason);
+});
+
+let b = new Promise((resolve, reject) => {
+        let b = 0;
+        resolve(b);
+    })
+        .then((value) => {
+            throw new Error('ошибка')
+        })
+        .then((value) => console.log("Значение b:", value))
+        .catch((error) => {
+            throw error
+        })
+;
+
+setTimeout(() => {
+    console.log(a);
+});
+
+//3 задание
+
+if (!Function.prototype.delay) {
+    Function.prototype.delay = function (ms) {
+        const originalFunction = this;
+        return function (...args) {
+            setTimeout(() => {
+                originalFunction.apply(this, args);
+            }, ms);
+        }();
+    };
+}
+
+function fireAlert() {
+    alert("alert!");
+}
+
+fireAlert.delay(300);
+
+
+//4 задание
+
+function myFunction() {
+    return myFunction;
+}
+
+const A = myFunction();
+const B = new myFunction();
+
+console.log(A === B);
+
+
+//5 задание
+let a = {};
+a.b = {
+    c: function () {
+        this.value = 3;
+    }
+};
+a.b.c();
+console.log(a.b.value);
