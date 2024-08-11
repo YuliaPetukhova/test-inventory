@@ -1,5 +1,6 @@
 <script lang="ts">
 import {useCellsStore} from "@/components/stores/CellsStore";
+import {ICellItem} from "@/components/models/ICellItem";
 
 export default {
   setup() {
@@ -7,6 +8,17 @@ export default {
       useCellsStore: useCellsStore(),
     };
   },
+  methods: {
+    cancelAction(cell: ICellItem) {
+      useCellsStore().cancelCellCount(cell);
+    },
+    confirmAction(cell: ICellItem) {
+      useCellsStore().setSelectedCell(cell)
+    },
+  },
+  computed: {
+    defaultCount: 1,
+  }
 }
 </script>
 
@@ -16,8 +28,10 @@ export default {
     <div class="panel-image">
 
       <div class="cell-image-container">
-        <div class="cell-image-blur" :style="{'background-color': useCellsStore.selectedCell.blurBackgroundColor}"></div>
-        <div class="cell-image-main" :style="{'background-color': useCellsStore.selectedCell.mainBackgroundColor}"></div>
+        <div class="cell-image-blur"
+             :style="{'background-color': useCellsStore.selectedCell.blurBackgroundColor}"></div>
+        <div class="cell-image-main"
+             :style="{'background-color': useCellsStore.selectedCell.mainBackgroundColor}"></div>
       </div>
 
     </div>
@@ -35,11 +49,13 @@ export default {
     </div>
 
     <div class="modal-form-number">
-      <input type="number" min="0" class="modal-number" placeholder="Введите количество">
+      <input type="number" min="0" :value="defaultCount" class="modal-number"
+             placeholder="Введите количество">
 
       <div class="modal-buttons">
-        <button type="button" class="modal-button-cancel">Отмена</button>
-        <button type="button" class="button-confirm">Подтвердить</button>
+        <button type="button" class="modal-button-cancel" @click="cancelAction">Отмена</button>
+        <button type="button" class="button-confirm" @click="confirmAction(useCellsStore.selectedCell)">Подтвердить
+        </button>
       </div>
     </div>
   </div>

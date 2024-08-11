@@ -101,9 +101,20 @@ export const useCellsStore = defineStore('cellsStore', {
                 empty: false,
             } as ICellItem,
     }),
+
+    getters: {
+        getData: (state) => state.data,
+        getSelectedCell: (state) => state.selectedCell,
+    },
+
     actions: {
         setSelectedCell(cell: ICellItem): void {
             this.selectedCell = cell;
         },
+
+        cancelCellCount(cell: ICellItem): void {
+            console.log('1');
+        }
     },
+
 });

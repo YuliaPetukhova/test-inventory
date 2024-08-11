@@ -91,7 +91,6 @@ export default {
   background-color: #262626;
   height: 100px;
   width: 105px;
-  cursor: pointer;
   box-sizing: border-box;
   padding: 0;
   border: 1px solid #4D4D4D;
@@ -118,6 +117,7 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: grab;
 
     .cell-image-main {
       width: 54px;
@@ -150,6 +150,7 @@ export default {
     line-height: 1;
     color: #ffffff;
     box-sizing: border-box;
+    cursor: pointer;
   }
 }
 
